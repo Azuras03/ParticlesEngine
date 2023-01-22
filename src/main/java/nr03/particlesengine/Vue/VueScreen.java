@@ -5,6 +5,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import nr03.particlesengine.Controller.ControllerClick;
+import nr03.particlesengine.Controller.ControllerDrag;
+import nr03.particlesengine.ParticleEngine;
 
 import java.util.ArrayList;
 
@@ -15,17 +17,9 @@ public class VueScreen extends Pane {
     public VueScreen() {
         this.setStyle("-fx-background-color: #000000");
         ControllerClick cC = new ControllerClick(this);
+        ControllerDrag cD = new ControllerDrag(this);
         this.addEventHandler(MouseEvent.MOUSE_CLICKED, cC);
-
-        AnimationTimer animationTimer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                for (VueParticle particle : particles) {
-                    update(particle);
-                }
-            }
-        };
-        animationTimer.start();
+        this.addEventHandler(MouseEvent.MOUSE_DRAGGED, cD);
     }
 
     public void update(VueParticle vueParticle) {
@@ -33,6 +27,14 @@ public class VueScreen extends Pane {
         if(!vueParticle.valide){
             this.getChildren().remove(vueParticle);
         }
+    }
+
+    public void updateAll(){
+        for (VueParticle particle : particles) {
+            update(particle);
+        }
+        this.setWidth(ParticleEngine.WIDTH);
+        this.setHeight(ParticleEngine.HEIGHT);
     }
 
     public void removeAll() {
