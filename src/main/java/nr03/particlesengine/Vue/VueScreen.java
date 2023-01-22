@@ -1,9 +1,7 @@
 package nr03.particlesengine.Vue;
 
-import javafx.animation.AnimationTimer;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import nr03.particlesengine.Controller.ControllerClick;
 import nr03.particlesengine.Controller.ControllerDrag;
 import nr03.particlesengine.ParticleEngine;
@@ -40,6 +38,18 @@ public class VueScreen extends Pane {
     public void removeAll() {
         this.getChildren().removeAll(particles);
         particles.clear();
+    }
+
+    public void changeInitRadius(double r){
+        if(ParticleEngine.radiusBalls + r > 0){
+            ParticleEngine.radiusBalls += r;
+        }
+    }
+
+    public void changeRadius(double r){
+        for (VueParticle particle : particles) {
+            particle.changeRadius(r);
+        }
     }
 
     public ArrayList<VueParticle> getParticles(){

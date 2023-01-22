@@ -1,11 +1,9 @@
 package nr03.particlesengine.Vue;
 
-import javafx.scene.effect.GaussianBlur;
-import javafx.scene.effect.Glow;
-import javafx.scene.effect.MotionBlur;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import nr03.particlesengine.Model.ModeleParticle;
+import nr03.particlesengine.ParticleEngine;
 
 public class VueParticle extends Circle {
 
@@ -54,4 +52,7 @@ public class VueParticle extends Circle {
         }
     }
 
+    public void changeRadius(double r) {
+        setRadius(getRadius() + r);
+    }
 }
