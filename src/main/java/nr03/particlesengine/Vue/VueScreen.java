@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class VueScreen extends Pane {
 
     public ArrayList<VueParticle> particles = new ArrayList<>();
+    public ArrayList<VueParticle> particlesInv = new ArrayList<>();
 
     public VueScreen() {
         this.setStyle("-fx-background-color: #000000");
@@ -24,6 +25,7 @@ public class VueScreen extends Pane {
         vueParticle.update();
         if(!vueParticle.valide){
             this.getChildren().remove(vueParticle);
+            this.particlesInv.add(vueParticle);
         }
     }
 
@@ -31,6 +33,10 @@ public class VueScreen extends Pane {
         for (VueParticle particle : particles) {
             update(particle);
         }
+        for (VueParticle particle : particlesInv) {
+            particles.remove(particle);
+        }
+        particlesInv.clear();
         this.setWidth(ParticleEngine.WIDTH);
         this.setHeight(ParticleEngine.HEIGHT);
     }

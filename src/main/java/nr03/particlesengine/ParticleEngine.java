@@ -7,6 +7,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import nr03.particlesengine.Model.ModeleParticle;
 import nr03.particlesengine.Vue.VueScreen;
 
 import java.io.IOException;
@@ -20,6 +21,9 @@ public class ParticleEngine extends Application {
     public static double countTextCurrOpacity = countTextInitOpacity;
     public static double radiusBalls = 5;
 
+    public static int NB_PARTICLES_CLICK = 50;
+    public static int NB_PARTICLES_DRAG = 5;
+
     @Override
     public void start(Stage stage) throws IOException {
 
@@ -27,7 +31,8 @@ public class ParticleEngine extends Application {
 
         VueScreen rootScreen = new VueScreen();
 
-        Scene scene = new Scene(root, WIDTH, HEIGHT);;
+        Scene scene = new Scene(root, WIDTH, HEIGHT);
+        ;
         stage.setTitle("Particles Engine ✨");
         stage.setScene(scene);
         root.getChildren().add(rootScreen);
@@ -44,7 +49,7 @@ public class ParticleEngine extends Application {
                 HEIGHT = (int) scene.getHeight();
                 rootScreen.updateAll();
                 countTextCurrOpacity--;
-                text.setOpacity(countTextCurrOpacity/countTextInitOpacity);
+                text.setOpacity(countTextCurrOpacity / countTextInitOpacity);
             }
         };
         animationTimer.start();
@@ -57,11 +62,19 @@ public class ParticleEngine extends Application {
                     break;
                 case UP:
                     rootScreen.changeInitRadius(5);
-                    text.setText("Rayon des particules augmenté de 5px ("+ radiusBalls +"px). Huge !");
+                    text.setText("Rayon des particules augmenté de 5px (" + radiusBalls + "px). Huge !");
                     break;
                 case DOWN:
                     rootScreen.changeInitRadius(-5);
-                    text.setText("Rayon des particules diminué de 5px ("+ radiusBalls +"px). Smol !");
+                    text.setText("Rayon des particules diminué de 5px (" + radiusBalls + "px). Smol !");
+                    break;
+                case LEFT:
+                    ModeleParticle.GRAVITY--;
+                    text.setText("Gravité diminuée de 1 (" + ModeleParticle.GRAVITY + "). Gravity is a myth !");
+                    break;
+                case RIGHT:
+                    ModeleParticle.GRAVITY++;
+                    text.setText("Gravité augmentée de 1 (" + ModeleParticle.GRAVITY + "). Gravity is real !");
                     break;
             }
             countTextCurrOpacity = countTextInitOpacity;

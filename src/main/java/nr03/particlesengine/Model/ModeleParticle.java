@@ -12,7 +12,7 @@ public class ModeleParticle {
     public double initSpeedX;
     public double initSpeedY;
 
-    public static final double GRAVITY = 1;
+    public static double GRAVITY = 1;
     public static final double AIR_RESISTANCE = 0.99;
 
     public ModeleParticle(double x, double y, double direction, double speed) {

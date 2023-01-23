@@ -20,7 +20,7 @@ public class ControllerClick implements EventHandler<MouseEvent> {
         Color color = Color.color(Math.random(), Math.random(), Math.random());
         vS.getChildren().add(new VueClick(event.getX(), event.getY(), color));
         color = color.brighter();
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < ParticleEngine.NB_PARTICLES_CLICK; i++) {
             VueParticle vueParticle = new VueParticle(event.getX(), event.getY(), ParticleEngine.radiusBalls, Math.random() * 2 * Math.PI, Math.random() * 10, color);
             vS.getChildren().add(vueParticle);
             vS.getParticles().add(vueParticle);
