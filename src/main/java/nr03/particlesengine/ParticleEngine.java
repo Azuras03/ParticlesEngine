@@ -3,26 +3,41 @@ package nr03.particlesengine;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import nr03.particlesengine.Model.ModeleParticle;
+import nr03.particlesengine.Controller.ControllerKeys;
 import nr03.particlesengine.Vue.VueScreen;
+import nr03.particlesengine.Vue.VueText;
 
 import java.io.IOException;
 
 public class ParticleEngine extends Application {
 
+    // Set the initial resolution hehe !
     public static int WIDTH = 1280;
     public static int HEIGHT = 720;
 
+    // Set the counter for the text to be shown :)
     public static final double countTextInitOpacity = 150;
-    public static double countTextCurrOpacity = countTextInitOpacity;
+
+    // Set the initial radius as the particles, called here  b a l l s
     public static double radiusBalls = 5;
 
+    // Set the number of particles you will make when you click
     public static int NB_PARTICLES_CLICK = 50;
+
+    // Set the number of particles you will make when you drag your mouse
     public static int NB_PARTICLES_DRAG = 5;
+
+    // Set the key bindings :]
+    public static final KeyCode REMOVE_ALL_PARTICLES = KeyCode.ESCAPE;
+    public static final KeyCode INCREASE_RADIUS_BALLS = KeyCode.RIGHT;
+    public static final KeyCode DECREASE_RADIUS_BALLS = KeyCode.LEFT;
+    public static final KeyCode DECREASE_GRAVITY = KeyCode.UP;
+    public static final KeyCode INCREASE_GRAVITY = KeyCode.DOWN;
+    public static final KeyCode PAUSE = KeyCode.SPACE;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -37,48 +52,21 @@ public class ParticleEngine extends Application {
         stage.setScene(scene);
         root.getChildren().add(rootScreen);
         stage.show();
-        Text text = new Text("Bienvenue dans le moteur de particules ! \nCréé par Nicolas R. \n\nCliquez ou faites glisser pour créer des particules !");
-        text.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-        text.setStyle("-fx-font: 24 arial;");
-        text.setFill(Color.WHITE);
+        VueText text = new VueText();
         root.getChildren().add(text);
+
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 WIDTH = (int) scene.getWidth();
                 HEIGHT = (int) scene.getHeight();
                 rootScreen.updateAll();
-                countTextCurrOpacity--;
-                text.setOpacity(countTextCurrOpacity / countTextInitOpacity);
             }
         };
         animationTimer.start();
 
-        scene.setOnKeyPressed(event -> {
-            switch (event.getCode()) {
-                case ESCAPE:
-                    rootScreen.removeAll();
-                    text.setText("Tout a été retiré. Pouf !");
-                    break;
-                case UP:
-                    rootScreen.changeInitRadius(5);
-                    text.setText("Rayon des particules augmenté de 5px (" + radiusBalls + "px). Huge !");
-                    break;
-                case DOWN:
-                    rootScreen.changeInitRadius(-5);
-                    text.setText("Rayon des particules diminué de 5px (" + radiusBalls + "px). Smol !");
-                    break;
-                case LEFT:
-                    ModeleParticle.GRAVITY--;
-                    text.setText("Gravité diminuée de 1 (" + ModeleParticle.GRAVITY + "). Gravity is a myth !");
-                    break;
-                case RIGHT:
-                    ModeleParticle.GRAVITY++;
-                    text.setText("Gravité augmentée de 1 (" + ModeleParticle.GRAVITY + "). Gravity is real !");
-                    break;
-            }
-            countTextCurrOpacity = countTextInitOpacity;
-        });
+        ControllerKeys cK = new ControllerKeys(rootScreen, text, animationTimer);
+        stage.addEventHandler(KeyEvent.KEY_PRESSED, cK);
 
     }
 

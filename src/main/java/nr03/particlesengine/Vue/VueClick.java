@@ -1,8 +1,6 @@
 package nr03.particlesengine.Vue;
 
 import javafx.animation.AnimationTimer;
-import javafx.scene.effect.GaussianBlur;
-import javafx.scene.effect.Glow;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
