@@ -37,3 +37,10 @@ build/
 ### Mac OS ###
 .DS_Store
 /out/
+/.idea/encodings.xml
+/src/main/resources/META-INF/MANIFEST.MF
+/.idea/misc.xml
+/.idea/artifacts/ParticlesEngine_jar.xml
+/.idea/php.xml
+/.idea/vcs.xml
+/.idea/workspace.xml
